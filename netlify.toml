@@ -1,0 +1,9 @@
+# Netlify build settings, kept in the repo so the dashboard cannot drift.
+# Netlify detects Next.js and runs it with its Next.js runtime: pages are
+# served from .next, and app/api/contact becomes a serverless function.
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"

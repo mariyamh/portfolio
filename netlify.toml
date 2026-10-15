@@ -7,3 +7,9 @@
 
 [build.environment]
   NODE_VERSION = "22"
+
+# The Next.js runtime: turns the build into Netlify's routes, edge handling and
+# a serverless function for app/api/contact. Listed explicitly (and pinned in
+# devDependencies) so the deploy never falls back to uploading .next as files.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"

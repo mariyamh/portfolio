@@ -6,8 +6,7 @@ export function Skills() {
   return (
     <Section id="skills" title="Skills" tinted>
       <p {...reveal("soft")} className="max-w-2xl text-base leading-relaxed text-muted">
-        Grouped by what I actually do with them. No ratings — the work above is
-        the evidence.
+        Technologies and tools I&apos;ve worked with across different projects.
       </p>
 
       <dl className="mt-10 border-t border-line-strong">
@@ -21,9 +20,6 @@ export function Skills() {
               <h3 className="text-xs tracking-[0.12em] uppercase transition-colors duration-300 group-hover:text-accent">
                 {group.title}
               </h3>
-              <p className="mt-1.5 text-xs leading-relaxed text-muted">
-                {group.note}
-              </p>
             </dt>
             <dd className="font-mono text-xs leading-6 text-muted">
               {group.items.join("  ·  ")}

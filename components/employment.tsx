@@ -7,7 +7,8 @@ export function Employment() {
   return (
     <Section id="employment" title="Employment">
       <p {...reveal("soft")} className="max-w-2xl text-base leading-relaxed text-muted">
-        Eight years across product companies and agencies, remote since 2022.
+        I&apos;ve spent eight years working with product-based and SaaS
+        companies, and I&apos;ve been working remotely since 2022.
       </p>
 
       <ol className="mt-10 grid gap-x-12 gap-y-7 sm:grid-cols-2">

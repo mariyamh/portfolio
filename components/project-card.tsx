@@ -17,28 +17,11 @@ const MAX_STACK = 6;
  */
 function Thumb({ project }: { project: Project }) {
   const frame =
-    "tilt relative aspect-[16/10] w-full overflow-hidden rounded-lg border border-line bg-surface group-hover:border-accent/60 group-hover:shadow-[0_24px_48px_-24px_var(--accent)]";
-
-  // Hover: a glare follows the pointer and a caption rises from the bottom.
-  // The tilt itself is CSS (.tilt), fed the pointer position by <Motion />.
-  const overlay = (
-    <>
-      <span aria-hidden="true" className="tilt-glare" />
-      <span
-        aria-hidden="true"
-        className="absolute inset-x-0 bottom-0 flex translate-y-3 items-center justify-between bg-gradient-to-t from-black/75 via-black/35 to-transparent px-4 pt-10 pb-3.5 opacity-0 transition-[opacity,transform] duration-500 ease-out group-hover:translate-y-0 group-hover:opacity-100"
-      >
-        <span className="text-sm font-medium text-white">View project</span>
-        <span className="grid size-8 place-items-center rounded-full bg-white/15 text-white backdrop-blur-sm transition-transform duration-500 ease-out group-hover:-rotate-45">
-          →
-        </span>
-      </span>
-    </>
-  );
+    "relative aspect-[16/10] w-full overflow-hidden rounded-lg border border-line bg-surface transition-colors duration-300 group-hover:border-line-strong";
 
   if (project.media) {
     return (
-      <div className={frame} data-tilt>
+      <div className={frame}>
         <Image
           src={project.media.src}
           width={project.media.width}
@@ -46,9 +29,8 @@ function Thumb({ project }: { project: Project }) {
           unoptimized={project.media.animated}
           alt=""
           sizes="(min-width: 1024px) 30rem, 100vw"
-          className="size-full object-cover object-top group-hover:scale-[1.08] group-hover:brightness-[1.06] group-hover:saturate-[1.12]"
+          className="size-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.02]"
         />
-        {overlay}
       </div>
     );
   }
@@ -63,7 +45,6 @@ function Thumb({ project }: { project: Project }) {
           {project.org ? "Private repository" : project.kind}
         </span>
       </span>
-      {overlay}
     </div>
   );
 }
@@ -90,7 +71,7 @@ export function ProjectCard({
     <RevealItem className="h-full">
       <Link
         href={`/work/${project.slug}`}
-        className="group grid h-full content-start items-center gap-6 rounded-2xl border border-line bg-paper/60 p-5 transition-[opacity,border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-[0_32px_64px_-36px_rgba(15,23,42,0.5)] sm:p-6 lg:grid-cols-2 lg:content-center lg:gap-10 lg:p-8 lg:group-hover/list:opacity-60 lg:hover:opacity-100!"
+        className="group grid h-full content-start items-center gap-6 rounded-2xl border border-line bg-paper/60 p-5 transition-[opacity,border-color] duration-300 hover:border-line-strong sm:p-6 lg:grid-cols-2 lg:content-center lg:gap-10 lg:p-8 lg:group-hover/list:opacity-60 lg:hover:opacity-100!"
       >
         {/* On a phone only real screenshots are shown; the placeholder tile
             would cost a screen of scrolling and say nothing new. */}

@@ -186,16 +186,12 @@ export function ContactForm() {
           maxLength={LIMITS.message.max}
           required
           aria-invalid={Boolean(errors.message)}
-          aria-describedby={errors.message ? "message-error" : "message-hint"}
+          aria-describedby={errors.message ? "message-error" : undefined}
           className={`${field} resize-y`}
         />
-        {errors.message ? (
+        {errors.message && (
           <p id="message-error" className="mt-1.5 text-xs text-amber-ink">
             {errors.message}
-          </p>
-        ) : (
-          <p id="message-hint" className="mt-1.5 text-xs text-muted">
-            The role, the team, and what the work actually is. That is enough.
           </p>
         )}
       </div>

@@ -22,10 +22,10 @@ export function Contact() {
             {...reveal("soft", 100)}
             className="mt-4 max-w-xl text-sm leading-relaxed text-muted"
           >
-            If you are hiring for backend, full-stack or AI engineering work,
-            this is the fastest way to reach me. I am in {site.location} (
-            {site.timezone}) and work remotely — happy to overlap with European
-            or US hours.
+            Looking for someone for a backend, full-stack, or AI engineering
+            role? Feel free to reach out. I&apos;m based in {site.location} (
+            {site.timezone}), and I&apos;m open to working with teams across
+            Europe and the US.
           </p>
 
           <ContactForm />

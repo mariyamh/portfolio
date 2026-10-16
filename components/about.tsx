@@ -34,13 +34,13 @@ export function About() {
 
           <div className="mt-8 space-y-5 text-base leading-relaxed text-muted">
             <p {...reveal("soft")}>
-              The work I find most interesting usually arrives as a complaint
-              rather than a ticket. An order screen that takes too long turns out
-              to be N+1 queries and image blobs sitting in the database. A
-              support agent that answers politely but gets a refund rule wrong
-              turns out to need a deterministic rule layer, not a better prompt.
-              The fixes I am most pleased with have been unglamorous and
-              permanent.
+              The work I enjoy most is figuring out why something isn&apos;t
+              working the way it should. Sometimes a slow page comes down to a
+              few bad database queries or images being stored the wrong way.
+              Sometimes an AI support agent gives the wrong answer because the
+              problem isn&apos;t the prompt, but how the business rules are
+              handled. I like getting to the root of these problems and fixing
+              them properly, rather than just patching the symptoms.
             </p>
             <p {...reveal("soft")}>
               I have worked remotely with international teams since 2022, from
@@ -55,20 +55,21 @@ export function About() {
             {...reveal("soft", 80)}
             className="text-pretty text-lg leading-relaxed sm:text-xl"
           >
-            Eight years of it, most on the server side: schema design, API
-            contracts, the queue that has to survive a deploy, and the
-            authorisation rules nobody notices until they are wrong. Most
-            recently I led a team of five through technical design, code review
-            and release.
+            I&apos;ve spent the last eight years building software, mostly
+            working on the backend. That includes designing databases, building
+            APIs, connecting different services, and making sure things keep
+            working when they&apos;re deployed. I&apos;ve also led a team of
+            five, working on technical decisions, reviewing code, and managing
+            releases.
           </p>
 
           <p {...reveal("soft")} className="mt-5 text-base leading-relaxed text-muted">
-            For the past year that has meant LLM products, approached the way I
-            would approach any other integration: the model is one unreliable
-            dependency among several. The engineering sits around it — retrieval
-            that is reproducible, guardrails that are deterministic, idempotent
-            writes, rate limits, audit trails, and traces worth reading when
-            someone says it got an answer wrong.
+            Over the past year, I&apos;ve started working more with LLMs. What
+            interests me isn&apos;t just getting AI to generate a good response,
+            but making sure the application around it actually works. That
+            means handling incorrect answers, keeping data secure, managing
+            failures, and making it easier to figure out what went wrong when
+            something doesn&apos;t behave as expected.
           </p>
 
           <dl

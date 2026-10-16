@@ -16,8 +16,6 @@ const LATE_MS = 2800;
  *   IntersectionObserver for the whole document. Entries that arrive together
  *   are ordered by position and staggered, so grids cascade row by row.
  * - Picks up elements added later (client navigation) with a MutationObserver.
- * - Feeds the pointer position to [data-tilt] images, as --px/--py (0–1),
- *   so CSS can tilt them towards the cursor; resets them when it leaves.
  *
  * All the visual work is CSS; this only flips attributes and custom properties.
  */
@@ -98,67 +96,10 @@ export function Motion() {
     });
     mutations.observe(document.body, { childList: true, subtree: true });
 
-    // Tilt: one listener for the document, throttled to a frame. Mouse only,
-    // and not at all when reduced motion is requested.
-    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let frame = 0;
-    let last: PointerEvent | null = null;
-    let tilted: HTMLElement | null = null;
-
-    const settle = (el: HTMLElement | null) => {
-      if (!el) return;
-      delete el.dataset.tilting;
-      el.style.setProperty("--px", "0.5");
-      el.style.setProperty("--py", "0.5");
-    };
-
-    const onPointer = (event: PointerEvent) => {
-      if (event.pointerType !== "mouse" || still) return;
-      last = event;
-      if (frame) return;
-      frame = requestAnimationFrame(() => {
-        frame = 0;
-        if (!last) return;
-        const target = (last.target as Element | null)?.closest<HTMLElement>(
-          "[data-tilt]",
-        );
-        if (target !== tilted) {
-          settle(tilted);
-          tilted = target ?? null;
-        }
-        if (!target) return;
-        const rect = target.getBoundingClientRect();
-        const px = Math.min(
-          Math.max((last.clientX - rect.left) / rect.width, 0),
-          1,
-        );
-        const py = Math.min(
-          Math.max((last.clientY - rect.top) / rect.height, 0),
-          1,
-        );
-        target.dataset.tilting = "true";
-        target.style.setProperty("--px", px.toFixed(3));
-        target.style.setProperty("--py", py.toFixed(3));
-      });
-    };
-
-    // Leaving the window altogether: let the last image settle.
-    const onOut = (event: MouseEvent) => {
-      if (event.relatedTarget) return;
-      settle(tilted);
-      tilted = null;
-    };
-
-    document.addEventListener("pointermove", onPointer, { passive: true });
-    document.addEventListener("mouseout", onOut);
-
     return () => {
       observer?.disconnect();
       mutations.disconnect();
       cancelAnimationFrame(pending);
-      cancelAnimationFrame(frame);
-      document.removeEventListener("pointermove", onPointer);
-      document.removeEventListener("mouseout", onOut);
     };
   }, []);
 

@@ -32,18 +32,27 @@ export function Hero() {
               className="intro mt-5 text-[clamp(1.75rem,4vw,2.75rem)] leading-[1.12] font-semibold tracking-[-0.03em] text-balance"
               style={at(80)}
             >
-              Engineering reliable systems.{" "}
-              <span className="text-accent">Building intelligent products.</span>
+              I break things to understand{" "}
+              <span className="text-accent">how to make them better.</span>
             </h1>
 
-            <p
-              className="intro mt-6 max-w-xl text-pretty text-base leading-relaxed text-muted sm:text-lg"
+            <div
+              className="intro mt-6 max-w-xl space-y-4 text-pretty text-base leading-relaxed text-muted sm:text-lg"
               style={at(160)}
             >
-              APIs, data models, queues and the pipelines that put them there —
-              and, for the past year, LLM products that treat the model as one
-              more unreliable dependency.
-            </p>
+              <p>
+                I like figuring out how things break, why they break, and what
+                it takes to fix them properly. Over the past{" "}
+                {site.yearsExperience} years, I&apos;ve worked across frontend,
+                backend, and cloud infrastructure, from complex integrations
+                and performance issues to security and data-heavy systems.
+              </p>
+              <p>
+                More recently, I&apos;ve been working with LLMs, building
+                AI-powered applications and dealing with the engineering
+                challenges that come with them.
+              </p>
+            </div>
 
             <div
               className="intro mt-8 flex flex-wrap items-center gap-2.5"

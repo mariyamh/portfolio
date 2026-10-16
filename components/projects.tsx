@@ -16,11 +16,13 @@ export function ClientWork() {
     <Section id="work" title="Client work">
       <Reveal variant="soft">
         <p className="max-w-2xl text-base leading-relaxed text-muted">
-          Production systems built for Tensorark, Cinnova, Holisto Systems,
-          InvoZone, Softech Systems and The Hexaa. These repositories are
-          private, so the entries describe the engineering rather than link to
-          it, and stay at a level the work allows. Nothing here is measured
-          unless it says so.
+          I&apos;ve worked on production software at Tensorark, Cinnova,
+          Holisto Systems, InvoZone, Softech Systems, and The Hexaa. Most of
+          that work lives in private repositories, so I can&apos;t share the
+          code publicly. Instead, I&apos;ve included the problems I worked on,
+          the technical decisions behind them, and what I learned along the
+          way. I&apos;ve kept the details factual and avoided adding numbers or
+          results I can&apos;t verify.
         </p>
       </Reveal>
 
@@ -38,9 +40,9 @@ export function IndependentWork() {
     <Section id="independent" title="Independent work">
       <Reveal variant="soft">
         <p className="max-w-2xl text-base leading-relaxed text-muted">
-          Built outside client work, on my own time. These are honest about what
-          they are: one tool I use myself, and two prototypes. Where the source
-          is public it is linked.
+          Here are a few personal projects I&apos;ve built in my spare time.
+          Some are still in progress, and I&apos;ve shared the code for the ones
+          that are public.
         </p>
       </Reveal>
 

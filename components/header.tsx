@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { sections, site } from "@/content/site";
 import { Container } from "./layout";
@@ -61,6 +62,11 @@ function MenuIcon({ open }: { open: boolean }) {
 
 export function Header() {
   const active = useActiveSection();
+  // The sections live on the home page. There, links are in-page anchors so
+  // they scroll smoothly; on any other page (a project, the 404) they go back
+  // to the home page first.
+  const onHome = usePathname() === "/";
+  const to = (id: string) => (onHome ? `#${id}` : `/#${id}`);
   const [open, setOpen] = useState(false);
 
   // Escape closes the menu, matching what a disclosure is expected to do.
@@ -87,7 +93,7 @@ export function Header() {
               serif, closed with the same emerald full stop as "Intro.". The
               full name is the link's accessible name. */}
           <a
-            href="#top"
+            href={onHome ? "#top" : "/"}
             onClick={() => setOpen(false)}
             aria-label={`${site.name} — back to top`}
             className="group flex shrink-0 items-center gap-2.5 transition-colors duration-300 hover:text-accent"
@@ -113,7 +119,7 @@ export function Header() {
                   return (
                     <li key={s.id}>
                       <a
-                        href={`#${s.id}`}
+                        href={to(s.id)}
                         aria-current={current ? "true" : undefined}
                         className={`${linkBase} ${
                           current ? "text-ink" : "text-muted hover:text-ink"
@@ -170,7 +176,7 @@ export function Header() {
               {sections.map((s) => (
                 <li key={s.id}>
                   <a
-                    href={`#${s.id}`}
+                    href={to(s.id)}
                     onClick={() => setOpen(false)}
                     aria-current={active === s.id ? "true" : undefined}
                     className={`block py-3 text-base transition-colors duration-200 ${

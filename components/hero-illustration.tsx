@@ -1,7 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useState, type CSSProperties } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+} from "react";
 import { CodeWindow } from "./code-window";
 
 /**
@@ -101,27 +107,82 @@ function Accent({ kind }: { kind: (typeof accents)[number]["kind"] }) {
   return null;
 }
 
+/** The idle cycle while the editor is closed: think, type, pause, repeat (ms). */
+const IDLE = { think: 6000, typing: 4500, still: 1500 } as const;
+type Pose = keyof typeof IDLE;
+const NEXT: Record<Pose, Pose> = {
+  think: "typing",
+  typing: "still",
+  still: "think",
+};
+
 export function HeroIllustration({ style }: { style?: CSSProperties }) {
   const [open, setOpen] = useState(false);
   // Typing finished: she holds the still typing pose instead of the loop.
   const [done, setDone] = useState(false);
-  // The typing images load only once she is hovered, focused or clicked.
+  // The typing images load once she is hovered, focused or clicked, or once
+  // the page has settled, ahead of the first idle cycle.
   const [warm, setWarm] = useState(false);
+  // Her pose while the editor is closed, cycled on a timer.
+  const [idle, setIdle] = useState<Pose>("think");
+  const [visible, setVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  // Only cycle while she is on screen and the tab is in front.
+  useEffect(() => {
+    const node = ref.current;
+    if (!node || typeof IntersectionObserver === "undefined") return;
+    const observer = new IntersectionObserver(([entry]) =>
+      setVisible(
+        entry.isIntersecting && document.visibilityState === "visible",
+      ),
+    );
+    const onVisibility = () => {
+      observer.unobserve(node);
+      observer.observe(node);
+    };
+    observer.observe(node);
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => {
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", onVisibility);
+    };
+  }, []);
+
+  // Fetch the typing images shortly after load, before the first cycle.
+  useEffect(() => {
+    const timer = window.setTimeout(() => setWarm(true), 2500);
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  // The idle cycle. Paused while the editor is open, while she is off screen,
+  // and never run at all when reduced motion is requested.
+  useEffect(() => {
+    if (open || !visible || !warm) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const timer = window.setTimeout(() => setIdle((p) => NEXT[p]), IDLE[idle]);
+    return () => window.clearTimeout(timer);
+  }, [open, visible, warm, idle]);
 
   const toggle = () => {
     setWarm(true);
     setDone(false);
+    setIdle("think");
     setOpen((v) => !v);
   };
-  const close = useCallback(() => setOpen(false), []);
+  const close = useCallback(() => {
+    setIdle("think");
+    setOpen(false);
+  }, []);
   const finish = useCallback(() => setDone(true), []);
 
-  const pose = !open ? "think" : done ? "still" : "typing";
+  const pose: Pose = !open ? idle : done ? "still" : "typing";
 
   return (
     <div
       className="illus intro relative hidden w-full items-center justify-center lg:flex"
       style={style}
+      ref={ref}
       onPointerEnter={() => setWarm(true)}
       onFocus={() => setWarm(true)}
     >

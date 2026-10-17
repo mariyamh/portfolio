@@ -57,7 +57,7 @@ export const projects: Project[] = [
     category: "Client",
     org: "Tensorark",
     role: "Senior Full Stack & AI Engineer — architected and shipped end to end",
-    period: "Dec 2025 — present",
+    period: "Dec 2025 – Present",
     problem:
       "Merchants answer the same four questions all day — where is my order, can I return this, can I cancel, can I change the address. A support bot that guesses at those is worse than none: refunds and cancellations move money, and a wrong answer about a return window becomes a chargeback.",
     highlights: [
@@ -128,7 +128,7 @@ export const projects: Project[] = [
     category: "Client",
     org: "Cinnova",
     role: "Team Lead / Senior Software Engineer — led delivery, 5+ engineers",
-    period: "2022 — 2025",
+    period: "2022 – 2025",
     problem:
       "Telecom operations are unforgiving: a number port is a regulated, multi-party process with no undo, and a reseller ordering a hundred numbers at once expects every one of them to land. The platform had to hold 10,000+ transactions a day across carrier APIs it did not control.",
     highlights: [
@@ -179,7 +179,7 @@ export const projects: Project[] = [
     category: "Client",
     org: "Cinnova",
     role: "Team Lead / Senior Software Engineer — query tuning and AWS",
-    period: "2022 — 2025",
+    period: "2022 – 2025",
     problem:
       "The slowest parts of the platform came down to the database: queries doing full-table scans.",
     highlights: [
@@ -206,7 +206,7 @@ export const projects: Project[] = [
     category: "Client",
     org: "Cinnova",
     role: "Team Lead / Senior Software Engineer — Plaid, finance modules, database",
-    period: "2022 — 2025",
+    period: "2022 – 2025",
     problem:
       "Users' bank and financial data has to come in reliably from outside, and the database has to keep up as that data grows.",
     highlights: [
@@ -233,7 +233,7 @@ export const projects: Project[] = [
     category: "Client",
     org: "Holisto Systems",
     role: "Senior Full Stack Engineer (Independent Contractor)",
-    period: "Dec 2025 — Jul 2026",
+    period: "Dec 2025 – Jul 2026",
     problem:
       "Food safety compliance is evidence, not intent: an outlet has to show that the fridge was checked, by whom, and what it read. Every tenant in the platform shares a single database, which makes isolation a property of the queries rather than of the infrastructure.",
     highlights: [
@@ -359,7 +359,7 @@ export const projects: Project[] = [
     category: "Client",
     org: "Softech Systems",
     role: "Software Engineer — doctor discovery, appointments, patient profiles and the lab module",
-    period: "2020 — 2021",
+    period: "2020 – 2021",
     problem:
       "Patients need to find a doctor, book an appointment and get lab work handled in one place, against a single patient profile.",
     highlights: [
@@ -387,7 +387,7 @@ export const projects: Project[] = [
     category: "Client",
     org: "Softech Systems",
     role: "Software Engineer — medical and pharmacy eCommerce in PHP",
-    period: "2020 — 2021",
+    period: "2020 – 2021",
     problem:
       "Medical and pharmacy products sold online: a catalogue customers can browse and order from.",
     highlights: ["A medical and pharmacy eCommerce platform, built in PHP."],
@@ -410,7 +410,7 @@ export const projects: Project[] = [
     category: "Client",
     org: "The Hexaa",
     role: "Software Engineer — solo build, end to end",
-    period: "2018 — 2019",
+    period: "2018 – 2019",
     problem:
       "A fashion label selling online needs the whole store, from catalogue to checkout, and an admin side to run it.",
     highlights: [

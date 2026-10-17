@@ -5,51 +5,54 @@ import { Reveal, reveal } from "./reveal";
 import { Flow } from "./flow";
 import { WorkflowDemo } from "./workflow-demo";
 
+const heading = "mt-12 text-sm font-medium text-muted";
+const body = "mt-3 text-[0.9375rem] leading-relaxed text-pretty";
+
 export function ProjectDetail({ project }: { project: Project }) {
   return (
     <>
-      <p
-        {...reveal("soft", 250)}
-        className="max-w-2xl text-pretty text-lg leading-relaxed"
-      >
+      <p {...reveal("up", 150)} className="mt-8 text-[1.0625rem] leading-relaxed text-pretty">
         {project.summary}
       </p>
 
-      <h2
-        {...reveal("up")}
-        className="label label-strong mt-10 border-b border-line-strong pb-2"
-      >
-        The problem
-      </h2>
-      <p
-        {...reveal("soft")}
-        className="mt-4 max-w-2xl text-pretty text-base leading-relaxed text-muted"
-      >
-        {project.problem}
-      </p>
-
       {project.media && (
-        <figure {...reveal("rise")} className="mt-10 max-w-3xl">
-          <div className="overflow-hidden border border-line-strong bg-surface">
+        <figure {...reveal("up")} className="mt-10">
+          <div className="overflow-hidden rounded-md border border-line bg-surface">
             <Image
               src={project.media.src}
               width={project.media.width}
               height={project.media.height}
               unoptimized={project.media.animated}
               alt={project.media.alt}
-              sizes="(max-width: 768px) 100vw, 768px"
+              sizes="(max-width: 700px) 100vw, 672px"
               className="h-auto w-full"
               priority
             />
           </div>
-          <figcaption className="mt-2.5 text-xs leading-relaxed text-muted">
-            {project.media.caption}
-          </figcaption>
+          <figcaption className="label mt-2.5">{project.media.caption}</figcaption>
         </figure>
       )}
 
+      <h2 {...reveal("soft")} className={heading}>
+        The problem
+      </h2>
+      <p {...reveal("up")} className={`${body} text-muted`}>
+        {project.problem}
+      </p>
+
+      <h2 {...reveal("soft")} className={heading}>
+        What I built
+      </h2>
+      <ul {...reveal("stagger")} className="mt-3 list-disc space-y-2.5 pl-5 marker:text-line-strong">
+        {project.highlights.map((point) => (
+          <li key={point} className="text-[0.9375rem] leading-relaxed text-pretty text-muted">
+            {point}
+          </li>
+        ))}
+      </ul>
+
       {project.flow && (
-        <Reveal variant="rise">
+        <Reveal className="mt-10">
           {project.flow.interactive && project.flow.details ? (
             <WorkflowDemo
               steps={project.flow.steps}
@@ -67,10 +70,10 @@ export function ProjectDetail({ project }: { project: Project }) {
         </Reveal>
       )}
 
-      <dl
-        {...reveal("stagger")}
-        className="mt-10 max-w-2xl border-t border-line-strong"
-      >
+      <h2 {...reveal("soft")} className={heading}>
+        Details
+      </h2>
+      <dl {...reveal("stagger")} className="mt-3 border-t border-line">
         {project.org && <Field label="Built for">{project.org}</Field>}
         <Field label="Role">{project.role}</Field>
         {project.facts?.length ? (
@@ -83,20 +86,7 @@ export function ProjectDetail({ project }: { project: Project }) {
           </Field>
         ) : null}
         <Field label="Period">{project.period}</Field>
-        {project.stack.length > 0 && (
-          <Field label="Stack">
-            <ul className="flex flex-wrap gap-1.5">
-              {project.stack.map((tech) => (
-                <li
-                  key={tech}
-                  className="rounded-full border border-line-strong bg-surface px-2.5 py-0.5 font-mono text-[0.6875rem] text-muted transition-colors duration-200 hover:border-accent hover:text-ink"
-                >
-                  {tech}
-                </li>
-              ))}
-            </ul>
-          </Field>
-        )}
+        {project.stack.length > 0 && <Field label="Stack">{project.stack.join(", ")}</Field>}
         {project.links?.length ? (
           <Field label="Source">
             {project.links.map((link) => (
@@ -105,9 +95,9 @@ export function ProjectDetail({ project }: { project: Project }) {
                 href={link.href}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="mr-4 text-accent underline decoration-line-strong underline-offset-4 hover:decoration-accent"
+                className="link mr-4"
               >
-                {link.href.replace("https://", "")} ↗
+                {link.href.replace("https://", "")}
               </a>
             ))}
           </Field>
@@ -118,23 +108,6 @@ export function ProjectDetail({ project }: { project: Project }) {
           </Field>
         )}
       </dl>
-
-      <h2
-        {...reveal("up")}
-        className="label label-strong mt-12 border-b border-line-strong pb-2"
-      >
-        What I built
-      </h2>
-      <ul {...reveal("stagger")} className="mt-5 max-w-2xl space-y-3.5">
-        {project.highlights.map((point) => (
-          <li
-            key={point}
-            className="border-l border-line pl-4 text-sm leading-relaxed text-muted"
-          >
-            {point}
-          </li>
-        ))}
-      </ul>
     </>
   );
 }

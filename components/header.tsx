@@ -1,11 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { sections, site } from "@/content/site";
 import { Container } from "./layout";
-import { AccentPicker, ThemeToggle } from "./theme-toggle";
+import { ThemeToggle } from "./theme-toggle";
 
 /**
  * Which section is currently in view.
@@ -62,9 +61,8 @@ function MenuIcon({ open }: { open: boolean }) {
 
 export function Header() {
   const active = useActiveSection();
-  // The sections live on the home page. There, links are in-page anchors so
-  // they scroll smoothly; on any other page (a project, the 404) they go back
-  // to the home page first.
+  // The sections live on the home page. There, links are in-page anchors;
+  // on any other page (a project, the 404) they go back home first.
   const onHome = usePathname() === "/";
   const to = (id: string) => (onHome ? `#${id}` : `/#${id}`);
   const [open, setOpen] = useState(false);
@@ -79,41 +77,24 @@ export function Header() {
     return () => document.removeEventListener("keydown", onKey);
   }, [open]);
 
-  const linkBase =
-    "relative inline-block py-1 text-sm transition-colors duration-200";
-
   return (
     <header
-      className="navbar sticky top-0 z-40 border-b border-line"
+      className="sticky top-0 z-40 bg-paper/85 backdrop-blur-md"
       style={{ viewTransitionName: "site-header" }}
     >
       <Container>
-        <div className="flex h-16 items-center justify-between gap-6 lg:h-20">
-          {/* The logo mark, then the monogram: initials in a heavy italic
-              serif, closed with the same emerald full stop as "Intro.". The
-              full name is the link's accessible name. */}
+        <div className="flex h-16 items-center justify-between gap-6">
           <a
             href={onHome ? "#top" : "/"}
             onClick={() => setOpen(false)}
-            aria-label={`${site.name} — back to top`}
-            className="group flex shrink-0 items-center gap-2.5 transition-colors duration-300 hover:text-accent"
+            className="shrink-0 text-[0.9375rem] font-medium tracking-[-0.01em]"
           >
-            <Image
-              src="/logos/maryam-mark-transparent.png"
-              width={192}
-              height={192}
-              alt=""
-              priority
-              className="size-10 shrink-0 object-contain transition-opacity duration-300 group-hover:opacity-80 lg:size-11"
-            />
-            <span className="wordmark text-[2rem] leading-none lg:text-[2.25rem]">
-              MS<span className="text-accent-hover">.</span>
-            </span>
+            {site.name}
           </a>
 
-          <div className="flex items-center gap-3 lg:gap-5">
-            <nav aria-label="Sections" className="hidden md:block">
-              <ul className="flex items-center gap-6 lg:gap-8">
+          <div className="flex items-center gap-4 sm:gap-5">
+            <nav aria-label="Sections" className="hidden sm:block">
+              <ul className="flex items-center gap-5">
                 {sections.map((s) => {
                   const current = active === s.id;
                   return (
@@ -121,18 +102,11 @@ export function Header() {
                       <a
                         href={to(s.id)}
                         aria-current={current ? "true" : undefined}
-                        className={`${linkBase} ${
+                        className={`text-sm transition-colors duration-200 ${
                           current ? "text-ink" : "text-muted hover:text-ink"
                         }`}
                       >
                         {s.label}
-                        {/* A plain rule under the current section only. */}
-                        {current && (
-                          <span
-                            aria-hidden="true"
-                            className="absolute inset-x-0 -bottom-0.5 h-px bg-ink"
-                          />
-                        )}
                       </a>
                     </li>
                   );
@@ -140,10 +114,7 @@ export function Header() {
               </ul>
             </nav>
 
-            <div className="flex items-center gap-1">
-              <AccentPicker />
-              <ThemeToggle />
-            </div>
+            <ThemeToggle />
 
             <button
               type="button"
@@ -151,7 +122,7 @@ export function Header() {
               aria-expanded={open}
               aria-controls="site-menu"
               aria-label={open ? "Close menu" : "Open menu"}
-              className="grid size-9 shrink-0 place-items-center rounded-md border border-line text-muted transition-colors hover:border-accent hover:text-accent md:hidden"
+              className="-mr-2 grid size-9 shrink-0 place-items-center text-muted transition-colors hover:text-ink sm:hidden"
             >
               <MenuIcon open={open} />
             </button>
@@ -159,30 +130,18 @@ export function Header() {
         </div>
       </Container>
 
-      {/* Reading progress, drawn by the scroll position itself (globals.css). */}
-      <span
-        aria-hidden="true"
-        className="scroll-progress pointer-events-none absolute inset-x-0 -bottom-px h-0.5"
-      />
-
       {open && (
-        <nav
-          id="site-menu"
-          aria-label="Sections"
-          className="menu-in border-t border-line md:hidden"
-        >
+        <nav id="site-menu" aria-label="Sections" className="menu-in sm:hidden">
           <Container>
-            <ul className="py-2">
+            <ul className="border-t border-line py-2">
               {sections.map((s) => (
                 <li key={s.id}>
                   <a
                     href={to(s.id)}
                     onClick={() => setOpen(false)}
                     aria-current={active === s.id ? "true" : undefined}
-                    className={`block py-3 text-base transition-colors duration-200 ${
-                      active === s.id
-                        ? "font-medium text-ink"
-                        : "text-muted hover:text-ink"
+                    className={`block py-2.5 text-[0.9375rem] transition-colors ${
+                      active === s.id ? "text-ink" : "text-muted hover:text-ink"
                     }`}
                   >
                     {s.label}

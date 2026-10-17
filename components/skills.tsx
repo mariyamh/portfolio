@@ -4,25 +4,20 @@ import { reveal } from "./reveal";
 
 export function Skills() {
   return (
-    <Section id="skills" title="Skills" tinted>
-      <p {...reveal("soft")} className="max-w-2xl text-base leading-relaxed text-muted">
+    <Section id="skills" title="Skills">
+      <p {...reveal("up")} className="text-[0.9375rem] leading-relaxed text-muted">
         Technologies and tools I&apos;ve worked with across different projects.
       </p>
 
-      <dl className="mt-10 border-t border-line-strong">
+      <dl {...reveal("stagger")} className="mt-6 border-b border-line">
         {skillGroups.map((group) => (
           <div
             key={group.title}
-            {...reveal("stagger")}
-            className="group grid gap-x-8 gap-y-2 border-b border-line py-5 lg:grid-cols-[14rem_minmax(0,1fr)]"
+            className="grid gap-1 border-t border-line py-3 sm:grid-cols-[9.5rem_minmax(0,1fr)] sm:gap-6"
           >
-            <dt>
-              <h3 className="text-xs tracking-[0.12em] uppercase transition-colors duration-300 group-hover:text-accent">
-                {group.title}
-              </h3>
-            </dt>
-            <dd className="font-mono text-xs leading-6 text-muted">
-              {group.items.join("  ·  ")}
+            <dt className="label">{group.title}</dt>
+            <dd className="text-sm leading-relaxed text-pretty">
+              {group.items.join(", ")}
             </dd>
           </div>
         ))}

@@ -1,20 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import { Header } from "@/components/header";
 import { Motion } from "@/components/motion";
 import { themeScript } from "@/components/theme-toggle";
 import { site } from "@/content/site";
 import "./globals.css";
 
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
-/** The header monogram only, so just the one heavy italic cut. */
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
-  weight: "900",
-  style: "italic",
-  subsets: ["latin"],
-});
+const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
+/** Only the code editor in the hero uses a monospace face. */
+const mono = JetBrains_Mono({ variable: "--font-mono-code", subsets: ["latin"] });
 
 const description = `${site.name} is a senior software engineer with ${site.yearsExperience} years building production backend systems, full-stack web applications and, more recently, LLM-powered products. Node.js, TypeScript, React, Next.js, PostgreSQL, AWS and Azure. Based in ${site.location}, working remotely.`;
 
@@ -73,7 +67,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       data-scroll-behavior="smooth"
       // The theme script below sets data-theme before React hydrates.
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} h-full antialiased`}
+      className={`${inter.variable} ${mono.variable} h-full antialiased`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />

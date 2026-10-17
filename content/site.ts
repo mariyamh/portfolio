@@ -39,9 +39,8 @@ export const site = {
 
 export const sections = [
   { id: "about", label: "About" },
-  { id: "employment", label: "Employment" },
-  { id: "work", label: "Client work" },
-  { id: "independent", label: "Independent" },
-  { id: "skills", label: "Skills" },
+  { id: "employment", label: "Experience" },
+  { id: "work", label: "Work" },
+  { id: "independent", label: "Projects" },
   { id: "contact", label: "Contact" },
 ] as const;

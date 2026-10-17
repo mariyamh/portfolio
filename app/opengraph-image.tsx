@@ -15,62 +15,24 @@ export default function OpengraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background:
-            "linear-gradient(120deg, #d9f0e4 0%, #fafbf8 42%, #fdefd8 100%)",
-          color: "#0f172a",
-          padding: "72px 80px",
+          background: "#fcfcfc",
+          color: "#171717",
+          padding: "80px 88px",
           fontFamily: "sans-serif",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-          <div
-            style={{
-              width: 10,
-              height: 10,
-              borderRadius: 999,
-              background: "#10b981",
-            }}
-          />
-          <div
-            style={{
-              fontSize: 22,
-              letterSpacing: 4,
-              textTransform: "uppercase",
-              color: "#3f4c5e",
-            }}
-          >
-            {site.role}
-          </div>
+        <div style={{ fontSize: 28, color: "#626262" }}>
+          {`${site.role} · ${site.location}`}
         </div>
-
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ fontSize: 96, lineHeight: 1.05, letterSpacing: -3, fontWeight: 600 }}>{site.name}</div>
-          <div
-            style={{
-              fontSize: 32,
-              lineHeight: 1.4,
-              color: "#3f4c5e",
-              marginTop: 24,
-              maxWidth: 900,
-            }}
-          >
-            {`Backend systems, full-stack delivery and AI engineering. ${site.yearsExperience} years in production.`}
+          <div style={{ fontSize: 88, fontWeight: 600, letterSpacing: -3 }}>
+            {site.name}
+          </div>
+          <div style={{ fontSize: 36, color: "#626262", marginTop: 20, maxWidth: 940 }}>
+            I break things to understand how to make them better.
           </div>
         </div>
-
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            borderTop: "1px solid #c4cdc3",
-            paddingTop: 28,
-            fontSize: 24,
-            color: "#3f4c5e",
-          }}
-        >
-          <div>{site.location}</div>
-          <div>TypeScript · Node.js · React · PostgreSQL · AWS</div>
-        </div>
+        <div style={{ fontSize: 26, color: "#626262" }}>{site.url.replace(/^https?:\/\//, "")}</div>
       </div>
     ),
     size,

@@ -6,7 +6,6 @@ import {
   type Recommendation,
 } from "@/content/recommendations";
 import { site } from "@/content/site";
-import { LinkedInMark } from "./icons";
 
 /** Height of a collapsed quote, in px: about nine lines. Longer quotes fade
  *  out at this height and expand on click. */
@@ -14,23 +13,6 @@ const COLLAPSED_PX = 216;
 
 /** How long each testimonial holds before the next one. */
 const ROTATE_MS = 4500;
-
-function Avatar() {
-  return (
-    <span className="grid size-10 shrink-0 place-items-center rounded-full bg-surface text-accent-hover">
-      <svg
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-        className="size-5 fill-none stroke-current"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-      >
-        <circle cx="12" cy="8.5" r="3.4" />
-        <path d="M5.5 19.5a6.5 6.5 0 0 1 13 0" />
-      </svg>
-    </span>
-  );
-}
 
 function Chevron({ direction }: { direction: "left" | "right" }) {
   return (
@@ -74,23 +56,9 @@ function Quote({
     <div>
       {/* The reviewer, named before anything they say — Maryam's name appears
           inside the quotes, so attribution has to come first to be clear. */}
-      <header className="flex items-start justify-between gap-3">
-        <div className="flex min-w-0 items-center gap-3">
-          <Avatar />
-          <div className="min-w-0">
-            <p className="text-sm leading-tight font-medium">{item.name}</p>
-            <p className="mt-1 text-xs leading-snug text-muted">{item.role}</p>
-          </div>
-        </div>
-        <a
-          href={site.links.linkedin}
-          target="_blank"
-          rel="noreferrer noopener"
-          aria-label="See these recommendations on LinkedIn"
-          className="mt-0.5 shrink-0 text-accent-hover transition-opacity hover:opacity-70"
-        >
-          <LinkedInMark className="size-4" />
-        </a>
+      <header>
+        <p className="text-[0.9375rem] font-medium">{item.name}</p>
+        <p className="mt-0.5 text-sm text-muted">{item.role}</p>
       </header>
 
       {/* The quote, marked by a rule rather than quotation marks. A long one
@@ -98,9 +66,7 @@ function Quote({
           keyboard and screen-reader users. */}
       <blockquote
         onClick={long ? onToggle : undefined}
-        className={`group/quote mt-5 border-l-2 border-accent-hover/60 pl-4 transition-colors duration-300 ${
-          long ? "cursor-pointer hover:border-accent-hover" : ""
-        }`}
+        className={`mt-4 ${long ? "cursor-pointer" : ""}`}
       >
         <div
           className={`overflow-hidden transition-[max-height] duration-500 ease-out ${
@@ -110,7 +76,7 @@ function Quote({
         >
           <div
             ref={textRef}
-            className="text-[0.9375rem] leading-relaxed whitespace-pre-line transition-colors duration-300 group-hover/quote:text-ink"
+            className="text-[0.9375rem] leading-relaxed whitespace-pre-line"
           >
             {item.quote}
           </div>
@@ -120,14 +86,22 @@ function Quote({
       <div className="mt-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
         <p className="text-xs leading-relaxed text-muted">
           {item.relationship} · {item.date}
-          {item.excerpt && " · excerpt"}
+          {item.excerpt && " · excerpt"} ·{" "}
+          <a
+            href={site.links.linkedin}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="link"
+          >
+            LinkedIn
+          </a>
         </p>
         {long && (
           <button
             type="button"
             onClick={onToggle}
             aria-expanded={expanded}
-            className="inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1 text-xs font-medium text-accent transition-colors duration-200 hover:border-accent hover:bg-accent/5"
+            className="link inline-flex items-center gap-1 text-sm"
           >
             {expanded ? "Show less" : "Read full recommendation"}
             <svg
@@ -213,23 +187,20 @@ export function Recommendations() {
   };
 
   const control =
-    "grid size-7 place-items-center rounded-full text-muted transition-colors hover:text-accent focus-visible:text-accent";
+    "grid size-7 place-items-center text-muted transition-colors hover:text-ink";
 
   return (
     <section
       ref={regionRef}
-      aria-labelledby="recommendations-label"
+      aria-label="Recommendations"
       aria-roledescription="carousel"
       data-autoplay={paused || expanded ? "paused" : "running"}
       // Hover pause. Keyboard focus is handled by the effect above.
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <p id="recommendations-label" className="label leading-[1.7rem]">
-        Recommended by colleagues
-      </p>
 
-      <figure className="mt-4 flex flex-col rounded-xl border border-line bg-paper p-5 sm:min-h-[29rem]">
+      <figure className="flex flex-col">
         <div className="flex-1">
           {/* Keyed so each slide mounts fresh and plays the fade-up once. */}
           <div
@@ -248,7 +219,7 @@ export function Recommendations() {
         </div>
 
         {count > 1 && (
-          <figcaption className="mt-4 flex items-center justify-center gap-4 border-t border-line pt-3.5">
+          <figcaption className="mt-6 flex items-center gap-4">
             <button
               type="button"
               onClick={() => go(index - 1)}
@@ -276,7 +247,7 @@ export function Recommendations() {
                     <span
                       key={index}
                       aria-hidden="true"
-                      className="dot-progress block h-full w-full rounded-full bg-accent-hover"
+                      className="dot-progress block h-full w-full rounded-full bg-ink"
                       style={
                         {
                           "--rotate": `${ROTATE_MS}ms`,

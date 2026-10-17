@@ -11,7 +11,7 @@ type Status =
   | { state: "error"; message: string; mailto?: string };
 
 const field =
-  "mt-1.5 w-full border border-line-strong bg-paper px-3 py-2.5 text-sm transition-colors focus:border-accent focus:outline-none";
+  "mt-1.5 w-full rounded-md border border-line-strong bg-paper px-3 py-2 text-[0.9375rem] transition-colors focus:border-ink focus:outline-none";
 
 export function ContactForm() {
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -103,16 +103,16 @@ export function ContactForm() {
     return (
       <div
         role="status"
-        className="mt-10 max-w-xl border border-accent bg-surface p-5"
+        className="mt-8 rounded-md border border-line p-5"
       >
         <p className="text-sm">
-          Thank you — that reached me. I reply to everything that is not a
-          recruiter template, usually within a day or two.
+          Thanks, your message reached me. I usually reply within a day or
+          two.
         </p>
         <button
           type="button"
           onClick={() => setStatus({ state: "idle" })}
-          className="mt-4 font-mono text-xs tracking-[0.12em] text-accent uppercase underline decoration-line-strong underline-offset-4 hover:decoration-accent"
+          className="link mt-3 text-sm"
         >
           Send another
         </button>
@@ -127,11 +127,11 @@ export function ContactForm() {
       onSubmit={onSubmit}
       noValidate
       data-reveal="stagger"
-      className="mt-8 max-w-xl"
+      className="mt-6"
     >
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label htmlFor="name" className="label label-strong">
+          <label htmlFor="name" className="text-sm font-medium">
             Name
           </label>
           <input
@@ -146,14 +146,14 @@ export function ContactForm() {
             className={field}
           />
           {errors.name && (
-            <p id="name-error" className="mt-1.5 text-xs text-amber-ink">
+            <p id="name-error" className="mt-1.5 text-xs text-danger">
               {errors.name}
             </p>
           )}
         </div>
 
         <div>
-          <label htmlFor="email" className="label label-strong">
+          <label htmlFor="email" className="text-sm font-medium">
             Email
           </label>
           <input
@@ -168,7 +168,7 @@ export function ContactForm() {
             className={field}
           />
           {errors.email && (
-            <p id="email-error" className="mt-1.5 text-xs text-amber-ink">
+            <p id="email-error" className="mt-1.5 text-xs text-danger">
               {errors.email}
             </p>
           )}
@@ -176,7 +176,7 @@ export function ContactForm() {
       </div>
 
       <div className="mt-4">
-        <label htmlFor="message" className="label label-strong">
+        <label htmlFor="message" className="text-sm font-medium">
           Message
         </label>
         <textarea
@@ -190,7 +190,7 @@ export function ContactForm() {
           className={`${field} resize-y`}
         />
         {errors.message && (
-          <p id="message-error" className="mt-1.5 text-xs text-amber-ink">
+          <p id="message-error" className="mt-1.5 text-xs text-danger">
             {errors.message}
           </p>
         )}
@@ -206,7 +206,7 @@ export function ContactForm() {
         <button
           type="submit"
           disabled={sending}
-          className="bg-accent px-5 py-2.5 font-mono text-xs tracking-wider text-paper uppercase transition-colors hover:bg-accent-hover hover:text-navy disabled:cursor-not-allowed disabled:opacity-60"
+          className="btn btn-primary"
         >
           {sending ? "Sending…" : "Send message"}
         </button>
@@ -216,12 +216,12 @@ export function ContactForm() {
       </div>
 
       {status.state === "error" && (
-        <div role="alert" className="mt-5 border-l-2 border-amber-ink pl-4">
+        <div role="alert" className="mt-5 border-l-2 border-danger pl-4">
           <p className="text-sm leading-relaxed text-muted">{status.message}</p>
           {status.mailto && (
             <a
               href={status.mailto}
-              className="mt-2 inline-block text-sm text-accent underline decoration-line-strong underline-offset-4 hover:decoration-accent"
+              className="link mt-2 inline-block text-sm"
             >
               Open it in your mail app →
             </a>

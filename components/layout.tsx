@@ -1,65 +1,49 @@
 import type { ReactNode } from "react";
 import { reveal } from "./reveal";
-import { SplitWords } from "./split-words";
 
+/** The page column. `narrow` is the reading measure used by articles. */
 export function Container({
   children,
   className = "",
+  narrow = false,
 }: {
   children: ReactNode;
   className?: string;
+  narrow?: boolean;
 }) {
   return (
-    <div className={`mx-auto w-full max-w-5xl px-5 sm:px-8 ${className}`}>
+    <div
+      className={`mx-auto w-full px-5 sm:px-8 ${narrow ? "max-w-[46rem]" : "max-w-5xl"} ${className}`}
+    >
       {children}
     </div>
   );
 }
 
-/**
- * Every section shares one header: the title, a short gradient rule, and a
- * hairline that runs out to the right. It is what gives the page its sheet-like
- * spine without numbering anything.
- */
+/** A section: its heading in a left column, the content beside it. On a
+ *  phone the heading sits above. */
 export function Section({
   id,
   title,
-  tinted = false,
   children,
 }: {
   id: string;
   title: string;
-  /** The warm-white-to-soft-green band, used to break up the page. */
+  /** Kept for callers; sections are no longer tinted. */
   tinted?: boolean;
   children: ReactNode;
 }) {
   return (
-    <section
-      id={id}
-      aria-labelledby={`${id}-heading`}
-      className={`scroll-mt-16 ${tinted ? "bg-gradient-to-b from-paper to-surface" : ""}`}
-    >
-      <Container>
-        <div className="flex items-center gap-3 pt-3 sm:gap-4">
-          <h2
-            id={`${id}-heading`}
-            {...reveal("words")}
-            className="text-xs tracking-[0.18em] uppercase sm:text-sm"
-          >
-            <SplitWords text={title} />
-          </h2>
-          <span
-            aria-hidden="true"
-            {...reveal("line")}
-            className="gradient-rule h-0.5 w-8 shrink-0"
-          />
-          <span
-            aria-hidden="true"
-            {...reveal("line", 120)}
-            className="h-px flex-1 bg-line"
-          />
-        </div>
-        <div className="pt-8 pb-16 sm:pt-10 sm:pb-20">{children}</div>
+    <section id={id} aria-labelledby={`${id}-heading`} className="scroll-mt-20">
+      <Container className="grid gap-4 py-8 sm:py-10 md:grid-cols-[11rem_minmax(0,1fr)] md:gap-10">
+        <h2
+          id={`${id}-heading`}
+          {...reveal("soft")}
+          className="text-sm font-medium text-muted md:pt-0.5"
+        >
+          {title}
+        </h2>
+        <div className="min-w-0">{children}</div>
       </Container>
     </section>
   );
@@ -77,7 +61,7 @@ export function Field({
 }) {
   return (
     <div className={`field ${className}`}>
-      <dt className="label pt-0.5">{label}</dt>
+      <dt className="label">{label}</dt>
       <dd className="text-sm leading-relaxed text-pretty">{children}</dd>
     </div>
   );

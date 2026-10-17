@@ -26,7 +26,7 @@ export const experience: Role[] = [
     monogram: "T",
     logo: { src: "/logos/tensorark.svg", width: 189, height: 218 },
     role: "Senior Full Stack & AI Engineer",
-    period: "Dec 2025 — present",
+    period: "Dec 2025 – Present",
     location: "Remote",
   },
   {
@@ -35,7 +35,7 @@ export const experience: Role[] = [
     logo: { src: "/logos/holisto.png", width: 800, height: 854 },
     logoTile: "dark",
     role: "Senior Full Stack Engineer (Independent Contractor)",
-    period: "Dec 2025 — Jul 2026",
+    period: "Dec 2025 – Jul 2026",
     location: "Remote",
   },
   {
@@ -44,7 +44,7 @@ export const experience: Role[] = [
     logo: { src: "/logos/cinnova.jpg", width: 400, height: 400 },
     logoTile: "bleed",
     role: "Team Lead / Senior Software Engineer",
-    period: "Jan 2022 — Dec 2025",
+    period: "Jan 2022 – Dec 2025",
     location: "Remote",
   },
   {
@@ -53,7 +53,7 @@ export const experience: Role[] = [
     logo: { src: "/logos/invozone.jpg", width: 400, height: 400 },
     logoTile: "bleed",
     role: "Senior Software Engineer",
-    period: "Mar 2021 — Dec 2021",
+    period: "Mar 2021 – Dec 2021",
     location: "Lahore, Pakistan",
   },
   {
@@ -63,7 +63,7 @@ export const experience: Role[] = [
     logoTile: "plain",
     logoZoom: 1.75,
     role: "Software Engineer",
-    period: "Jan 2020 — Feb 2021",
+    period: "Jan 2020 – Feb 2021",
     location: "Lahore, Pakistan",
   },
   {
@@ -73,7 +73,7 @@ export const experience: Role[] = [
     logoTile: "plain",
     logoZoom: 1.5,
     role: "Software Engineer",
-    period: "Jun 2018 — Dec 2019",
+    period: "Jun 2018 – Dec 2019",
     location: "Lahore, Pakistan",
   },
 ];

@@ -3,17 +3,17 @@
 import { useEffect, useRef, useState } from "react";
 import { site } from "@/content/site";
 
-/** Token kinds, coloured like a dark editor theme in the site's palette. */
+/** Token kinds, coloured like a standard dark editor theme. */
 type Kind = "kw" | "id" | "key" | "str" | "bool" | "punc" | "comment";
 
 const colour: Record<Kind, string> = {
-  kw: "text-violet-text",
-  id: "text-panel-ink",
-  key: "text-teal",
-  str: "text-amber-300",
-  bool: "text-emerald",
-  punc: "text-panel-muted",
-  comment: "text-panel-muted italic",
+  kw: "text-[#ff7b72]",
+  id: "text-[#e6edf3]",
+  key: "text-[#79c0ff]",
+  str: "text-[#a5d6ff]",
+  bool: "text-[#79c0ff]",
+  punc: "text-[#8b949e]",
+  comment: "text-[#8b949e] italic",
 };
 
 const str = (items: string[]): [string, Kind][] =>
@@ -142,22 +142,22 @@ export function CodeWindow({
       id="code-window"
       role="region"
       aria-label="Code editor"
-      className="code-window absolute top-[70%] right-[30%] z-20 w-[18.5rem] overflow-hidden rounded-lg border border-panel-line bg-navy text-left shadow-[0_24px_60px_-20px_rgba(0,0,0,0.6)]"
+      className="code-window absolute top-full right-0 z-20 mt-2 w-[19rem] overflow-hidden rounded-lg border border-[#30363d] bg-[#0d1117] text-left shadow-xl"
     >
-      <div className="flex items-center gap-3 border-b border-panel-line px-3 py-2">
+      <div className="flex items-center gap-3 border-b border-[#30363d] px-3 py-2">
         <span aria-hidden="true" className="flex gap-1.5">
           <i className="size-2.5 rounded-full bg-[#ff5f57]" />
           <i className="size-2.5 rounded-full bg-[#febc2e]" />
           <i className="size-2.5 rounded-full bg-[#28c840]" />
         </span>
-        <span className="flex-1 text-center font-mono text-[0.6875rem] text-panel-muted">
+        <span className="flex-1 text-center font-mono text-[0.6875rem] text-[#8b949e]">
           maryam.ts
         </span>
         <button
           type="button"
           onClick={onClose}
           aria-label="Close code editor"
-          className="grid size-5 place-items-center rounded text-panel-muted transition-colors hover:bg-navy-soft hover:text-panel-ink"
+          className="grid size-5 place-items-center rounded text-[#8b949e] transition-colors hover:bg-[#161b22] hover:text-[#e6edf3]"
         >
           <svg
             viewBox="0 0 24 24"
@@ -174,7 +174,7 @@ export function CodeWindow({
       <div className="flex gap-3 px-3 py-3 font-mono text-[0.71875rem] leading-[1.15rem]">
         <ol
           aria-hidden="true"
-          className="shrink-0 text-right text-panel-line select-none"
+          className="shrink-0 text-right text-[#484f58] select-none"
         >
           {Array.from({ length: lineCount }, (_, i) => (
             <li key={i}>{i + 1}</li>
@@ -188,10 +188,10 @@ export function CodeWindow({
         </pre>
       </div>
 
-      <div className="flex items-center gap-2 border-t border-panel-line px-3 py-2 font-mono text-[0.625rem] tracking-[0.08em] text-panel-muted uppercase">
+      <div className="flex items-center gap-2 border-t border-[#30363d] px-3 py-2 font-mono text-[0.625rem] tracking-[0.08em] text-[#8b949e] uppercase">
         <span
           aria-hidden="true"
-          className={`size-1.5 rounded-full ${done ? "bg-emerald" : "pulse bg-amber-300"}`}
+          className={`size-1.5 rounded-full ${done ? "bg-[#3fb950]" : "pulse bg-[#d29922]"}`}
         />
         <span role="status">{done ? "Ready" : "Typing…"}</span>
         <span className="ml-auto">TypeScript</span>

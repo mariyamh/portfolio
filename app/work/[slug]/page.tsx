@@ -43,46 +43,31 @@ export default async function ProjectPage({
   if (!project) notFound();
 
   const backHref = project.category === "Client" ? "/#work" : "/#independent";
-  const backLabel =
-    project.category === "Client" ? "Client work" : "Independent work";
+  const backLabel = project.category === "Client" ? "Work" : "Projects";
 
   return (
     <>
       <main id="main" className="flex-1">
-        <Container className="pt-10 pb-20 sm:pt-14 sm:pb-24">
+        <Container narrow className="pt-12 pb-20 sm:pt-16 sm:pb-24">
           <Link
             href={backHref}
-            {...reveal("left")}
-            className="label inline-block transition-colors hover:text-accent"
+            className="label inline-block transition-colors hover:text-ink"
           >
             ← {backLabel}
           </Link>
 
-          <div className="mt-8 flex flex-wrap items-center gap-3 border-b border-line-strong pb-3">
-            {/* The card title morphs into this heading, so it is never
-                hidden by a reveal of its own. */}
+          <header className="mt-8">
+            {/* The row title morphs into this heading, so it is never hidden
+                by a reveal of its own. */}
             <ViewTransition name={`title-${project.slug}`} share="morph" default="none">
-              <h1 className="text-2xl tracking-[-0.02em] sm:text-3xl">
+              <h1 className="text-[1.75rem] leading-tight font-semibold tracking-[-0.025em]">
                 {project.name}
               </h1>
             </ViewTransition>
-            <span
-              aria-hidden="true"
-              {...reveal("line", 200)}
-              className="gradient-rule h-0.5 w-8 shrink-0"
-            />
-            <span
-              aria-hidden="true"
-              {...reveal("line", 300)}
-              className="h-px flex-1 bg-line"
-            />
-            <span
-              {...reveal("soft", 400)}
-              className={`label ${project.kind !== "Production" ? "text-amber-ink" : ""}`}
-            >
-              {project.kind}
-            </span>
-          </div>
+            <p {...reveal("soft", 120)} className="label mt-2">
+              {project.org ?? "Independent"} · {project.kind} · {project.period}
+            </p>
+          </header>
 
           <ProjectDetail project={project} />
         </Container>

@@ -1,164 +1,75 @@
 @import "tailwindcss";
 
 /* --------------------------------------------------------------------------
-   Palette. Warm white ground, navy ink, forest green for anything you can
-   click. Emerald and teal are reserved for technical surfaces — the dark
-   diagram panels — where they have the contrast to carry meaning. Amber marks
-   work that is a prototype; violet marks the AI path. Each colour has one job.
+   Palette. Neutral greys and nothing else: text, a muted grey for secondary
+   text, and two line weights. Links are marked by underline, not colour. The
+   only colour on the site is inside screenshots and the code editor.
    -------------------------------------------------------------------------- */
 
 :root {
-  --paper: #fafbf8; /* warm white */
-  --surface: #eef4f0;
-  --ink: #0f172a; /* deep navy */
-  --muted: #3f4c5e;
-  --line: #e0e7e2;
-  --line-strong: #c2cdc5;
+  --paper: #fcfcfc;
+  --surface: #f4f4f4;
+  --ink: #171717;
+  --muted: #626262;
+  --line: #e8e8e8;
+  --line-strong: #d0d0d0;
 
-  /* Interactive. Forest green reads as text on the warm white; emerald is the
-     hover, where it sits on a dark fill. */
-  --accent: #144d3a; /* forest green */
-  --accent-hover: #10b981; /* emerald */
+  /* "Accent" is ink: buttons and emphasis are black-on-white, not coloured. */
+  --accent: #171717;
+  --accent-hover: #404040;
 
-  /* Technical panels. Always dark, so these keep their full saturation. */
-  --navy: #0f172a;
-  --navy-soft: #16213a;
-  --emerald: #10b981;
-  --teal: #06b6d4;
-  --violet: #8b5cf6; /* marks only — see --violet-text for type */
-  --violet-text: #a78bfa;
+  /* Dark panels (diagrams). Neutral in both themes. */
+  --navy: #161616;
+  --navy-soft: #1e1e1e;
+  --panel-ink: #ededed;
+  --panel-muted: #a1a1a1;
+  --panel-line: #2e2e2e;
+  --emerald: #ededed;
+  --teal: #a1a1a1;
+  --violet: #8a8a8a;
+  --violet-text: #d4d4d4;
+  --amber-ink: #626262;
+  --violet-ink: #626262;
+  --danger: #b42318;
 
-  /* The dark diagram panel keeps its own scale in both themes. */
-  --panel-ink: #e8eef2;
-  --panel-muted: #94a6bd;
-  --panel-line: #223148;
-
-  /* Marker colours, darkened so they can carry text on the warm white. */
-  --amber-ink: #a65f10;
-  --violet-ink: #6d28d9;
-
-  /* Strength of the hero's teal glow. */
-  --glow: 14%;
-
-  color-scheme: light;
-
-  /* Motion. A gentle quartic settle for anything arriving, and a symmetric
-     curve for anything that loops. */
   --ease-out: cubic-bezier(0.25, 1, 0.5, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  color-scheme: light;
 }
 
-/* Dark theme. It follows the system setting unless the visitor has picked a
-   theme with the header switch, which sets data-theme on <html> (see the
-   script in app/layout.tsx). The two blocks must stay identical. */
+/* Dark theme: the system setting unless the header switch picked one, which
+   sets data-theme on <html> (see app/layout.tsx). Keep both blocks identical. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --paper: #0b1220;
-    --surface: #131d2f;
-    --ink: #e8eef2;
-    --muted: #94a6bd;
-    --line: #1e293b;
-    --line-strong: #334155;
-
-    --accent: #10b981;
-    --accent-hover: #06b6d4;
-
-    --navy: #0f172a;
-    --navy-soft: #16213a;
-
-    --amber-ink: #fbbf24;
-    --violet-ink: #a78bfa;
-
-    --glow: 16%;
+    --paper: #111111;
+    --surface: #1a1a1a;
+    --ink: #ededed;
+    --muted: #a1a1a1;
+    --line: #242424;
+    --line-strong: #363636;
+    --accent: #ededed;
+    --accent-hover: #c8c8c8;
+    --amber-ink: #a1a1a1;
+    --violet-ink: #a1a1a1;
+    --danger: #f97066;
   }
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --paper: #0b1220;
-  --surface: #131d2f;
-  --ink: #e8eef2;
-  --muted: #94a6bd;
-  --line: #1e293b;
-  --line-strong: #334155;
-
-  --accent: #10b981;
-  --accent-hover: #06b6d4;
-
-  --navy: #0f172a;
-  --navy-soft: #16213a;
-
-  --amber-ink: #fbbf24;
-  --violet-ink: #a78bfa;
-
-  --glow: 16%;
-}
-
-/* Accent colours, picked with the swatch in the header (data-accent on
-   <html>, set before paint like the theme). Green is the default and needs no
-   rule. Each colour has a deeper value for text on the light ground and a
-   brighter one for the dark ground, so links stay readable in both. */
-:root[data-accent="violet"] {
-  --accent: #6d28d9;
-  --accent-hover: #8b5cf6;
-}
-
-:root[data-accent="berry"] {
-  --accent: #9d174d;
-  --accent-hover: #db2777;
-}
-
-:root[data-accent="copper"] {
-  --accent: #9a3412;
-  --accent-hover: #ea580c;
-}
-
-:root[data-accent="blue"] {
-  --accent: #1d4ed8;
-  --accent-hover: #3b82f6;
-}
-
-:root[data-accent="violet"][data-theme="dark"] {
-  --accent: #a78bfa;
-  --accent-hover: #c4b5fd;
-}
-
-:root[data-accent="berry"][data-theme="dark"] {
-  --accent: #f472b6;
-  --accent-hover: #f9a8d4;
-}
-
-:root[data-accent="copper"][data-theme="dark"] {
-  --accent: #fb923c;
-  --accent-hover: #fdba74;
-}
-
-:root[data-accent="blue"][data-theme="dark"] {
-  --accent: #60a5fa;
-  --accent-hover: #93c5fd;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root[data-accent="violet"]:not([data-theme="light"]) {
-    --accent: #a78bfa;
-    --accent-hover: #c4b5fd;
-  }
-
-  :root[data-accent="berry"]:not([data-theme="light"]) {
-    --accent: #f472b6;
-    --accent-hover: #f9a8d4;
-  }
-
-  :root[data-accent="copper"]:not([data-theme="light"]) {
-    --accent: #fb923c;
-    --accent-hover: #fdba74;
-  }
-
-  :root[data-accent="blue"]:not([data-theme="light"]) {
-    --accent: #60a5fa;
-    --accent-hover: #93c5fd;
-  }
+  --paper: #111111;
+  --surface: #1a1a1a;
+  --ink: #ededed;
+  --muted: #a1a1a1;
+  --line: #242424;
+  --line-strong: #363636;
+  --accent: #ededed;
+  --accent-hover: #c8c8c8;
+  --amber-ink: #a1a1a1;
+  --violet-ink: #a1a1a1;
+  --danger: #f97066;
 }
 
 @theme inline {
@@ -181,128 +92,143 @@
   --color-panel-line: var(--panel-line);
   --color-amber-ink: var(--amber-ink);
   --color-violet-ink: var(--violet-ink);
+  --color-danger: var(--danger);
 
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono-code), ui-monospace, SFMono-Regular, monospace;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 4.5rem;
+    scroll-padding-top: 5rem;
   }
 
   body {
     background: var(--paper);
     color: var(--ink);
     font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01";
     text-rendering: optimizeLegibility;
   }
 
   ::selection {
-    background: var(--accent);
+    background: var(--ink);
     color: var(--paper);
   }
 
   :focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--ink);
     outline-offset: 2px;
-  }
-
-  h2,
-  h3 {
-    font-family: var(--font-mono);
-    font-weight: 500;
   }
 }
 
 @layer components {
+  /* Secondary text: small, grey, sentence case. */
   .label {
-    font-family: var(--font-mono);
-    font-size: 0.6875rem;
+    font-size: 0.8125rem;
     line-height: 1.5;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
     color: var(--muted);
-  }
-
-  /* The header monogram: a heavy, high-contrast italic serif, used nowhere
-     else. Set tight so the two letters read as one mark. */
-  .wordmark {
-    font-family: var(--font-playfair), ui-serif, Georgia, serif;
-    font-style: italic;
-    font-weight: 900;
-    letter-spacing: -0.04em;
   }
 
   .label-strong {
     color: var(--ink);
+    font-weight: 500;
   }
 
+  /* An inline text link: underlined, darkens on hover. */
+  .link {
+    text-decoration: underline;
+    text-decoration-color: var(--line-strong);
+    text-underline-offset: 4px;
+    transition: text-decoration-color 200ms;
+  }
+
+  .link:hover {
+    text-decoration-color: var(--ink);
+  }
+
+  /* Buttons. One shape for every button on the site: 36px tall, 6px radius,
+     medium-weight label. Primary is solid ink; secondary is an outline that
+     fills faintly on hover. Both press down 1px. */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    height: 2.25rem;
+    padding: 0 0.875rem;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+    transition:
+      background-color 150ms ease,
+      border-color 150ms ease,
+      color 150ms ease,
+      transform 100ms ease;
+  }
+
+  .btn:active {
+    transform: translateY(1px);
+  }
+
+  .btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+    transform: none;
+  }
+
+  .btn-primary {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--ink) 86%, var(--paper));
+  }
+
+  .btn-secondary {
+    border-color: var(--line-strong);
+    color: var(--ink);
+  }
+
+  .btn-secondary:hover:not(:disabled) {
+    background: var(--surface);
+    border-color: color-mix(in srgb, var(--line-strong) 60%, var(--ink));
+  }
+
+  /* Square icon-only button. */
+  .btn-icon {
+    width: 2.25rem;
+    padding: 0;
+  }
+
+  /* One row of a spec table on the project pages. */
   .field {
     display: grid;
     grid-template-columns: 6rem minmax(0, 1fr);
     gap: 0 1rem;
     border-bottom: 1px solid var(--line);
-    padding: 0.625rem 0;
+    padding: 0.75rem 0;
   }
 
   @media (min-width: 640px) {
     .field {
-      grid-template-columns: 7.5rem minmax(0, 1fr);
+      grid-template-columns: 8rem minmax(0, 1fr);
     }
   }
 
   /* ------------------------------------------------------------------------
-     The field behind the hero: one soft, still wash of teal — the colour of
-     the brand mark — centred behind the mark and fading out before the first
-     section. One hue only, so the page has a single accent glow rather than
-     a multicolour backdrop.
-     ------------------------------------------------------------------------ */
-
-  .mesh {
-    position: absolute;
-    inset: -8% 0 auto 0;
-    height: 112%;
-    z-index: -1;
-    pointer-events: none;
-    background: radial-gradient(
-      48% 52% at 76% 36%,
-      color-mix(in oklab, var(--teal) var(--glow), transparent),
-      transparent 72%
-    );
-    /* Fades out before it reaches the first section. */
-    mask-image: linear-gradient(to bottom, #000 0%, #000 30%, transparent 64%);
-  }
-
-  /* The navbar sits on its own near-solid ground, with a trace of teal in it,
-     so the hero's glow does not read through it as a band. */
-  .navbar {
-    background: color-mix(in oklab, var(--teal) 4%, var(--paper));
-  }
-
-  @supports (backdrop-filter: blur(1px)) {
-    .navbar {
-      background: color-mix(
-        in oklab,
-        var(--teal) 4%,
-        color-mix(in srgb, var(--paper) 86%, transparent)
-      );
-      backdrop-filter: blur(12px);
-    }
-  }
-
-  /* ------------------------------------------------------------------------
-     Motion. One movement for the whole site: a short fade with a small lift,
-     on opacity and transform only, so the compositor does all of it. No blur,
-     no scaling, nothing that moves far or takes long. Above-the-fold content
-     is all in place inside a second.
+     Motion: one short fade with a small lift, opacity and transform only.
      ------------------------------------------------------------------------ */
 
   @keyframes fade-up {
     from {
       opacity: 0;
-      transform: translate3d(0, 12px, 0);
+      transform: translate3d(0, 8px, 0);
     }
   }
 
@@ -312,332 +238,31 @@
     }
   }
 
-  @keyframes draw {
-    from {
-      transform: scaleX(0);
-    }
-  }
-
-  /* Words rising into a line one after another. Each word sits in its own
-     mask, so it appears to come up from behind the baseline rather than
-     float in; the padding gives descenders room, so nothing is cut at rest. */
-  .split-word {
-    display: inline-block;
-    overflow: hidden;
-    vertical-align: top;
-    padding-bottom: 0.12em;
-    margin-bottom: -0.12em;
-  }
-
-  .split-word > span {
-    display: inline-block;
-  }
-
-  @keyframes word-up {
-    from {
-      opacity: 0;
-      transform: translate3d(0, 110%, 0);
-    }
-  }
-
-  @keyframes fade-left {
-    from {
-      opacity: 0;
-      transform: translate3d(-16px, 0, 0);
-    }
-  }
-
-  @keyframes fade-right {
-    from {
-      opacity: 0;
-      transform: translate3d(20px, 0, 0);
-    }
-  }
-
-  @keyframes rise {
-    from {
-      opacity: 0;
-      transform: translate3d(0, 24px, 0) scale(0.98);
-    }
-  }
-
-  /* Hero load sequence: each block fades up in turn, from --d, on first
-     paint and before JavaScript. Everything is in place within a second. */
+  /* First paint, top of the page: each block from --d. */
   .intro {
-    animation: fade-up 700ms var(--ease-out) var(--d, 0ms) both;
+    animation: fade-up 600ms var(--ease-out) var(--d, 0ms) both;
   }
 
-  .mesh {
-    animation: fade-in 1200ms var(--ease-out) both;
-  }
-
-  /* The hero's brand mark sits on a soft, still glow. */
-  .brand-glow {
-    position: absolute;
-    inset: 6%;
-    border-radius: 9999px;
-    background: radial-gradient(
-      closest-side,
-      color-mix(in oklab, var(--teal) 20%, transparent),
-      transparent
-    );
-  }
-
-  /* ------------------------------------------------------------------------
-     Hero illustration. A breathing glow, a ring with one dot in orbit, a
-     gentle float with a ground shadow that answers it, and a small lift on
-     hover. Slow loops, small distances: present, never busy.
-     ------------------------------------------------------------------------ */
-
-  .illus-glow {
-    animation: illus-breathe 6s var(--ease-in-out) infinite;
-    transition: filter 500ms var(--ease-out);
-  }
-
-  .illus:hover .illus-glow {
-    filter: brightness(1.35);
-  }
-
-  .illus-ring {
-    position: absolute;
-    top: 46%;
-    left: 50%;
-    width: 96%;
-    aspect-ratio: 1;
-    translate: -50% -50%;
-    border-radius: 9999px;
-    border: 1px solid color-mix(in oklab, var(--teal) 28%, transparent);
-    animation: illus-orbit 40s linear infinite;
-  }
-
-  /* The orbiting dot rides on the ring's rotation. */
-  .illus-ring::after {
-    content: "";
-    position: absolute;
-    top: -4px;
-    left: 50%;
-    width: 7px;
-    height: 7px;
-    margin-left: -3.5px;
-    border-radius: 9999px;
-    background: var(--teal);
-    box-shadow: 0 0 10px 2px color-mix(in oklab, var(--teal) 55%, transparent);
-  }
-
-  .illus-float {
-    animation: illus-float 6s var(--ease-in-out) infinite;
-  }
-
-  .illus-img {
-    transition: transform 500ms var(--ease-out);
-  }
-
-  /* Pose changes crossfade rather than cut. */
-  .pose {
-    transition: opacity 280ms var(--ease-out);
-  }
-
-  .illus:hover .illus-img {
-    transform: translate3d(0, -6px, 0) scale(1.02);
-  }
-
-  .illus-shadow {
-    position: absolute;
-    bottom: -2%;
-    left: 50%;
-    width: 64%;
-    height: 22px;
-    translate: -50% 0;
-    border-radius: 9999px;
-    background: radial-gradient(
-      closest-side,
-      rgb(15 23 42 / 0.22),
-      transparent
-    );
-    animation: illus-shadow 6s var(--ease-in-out) infinite;
-  }
-
-  :root[data-theme="dark"] .illus-shadow {
-    background: radial-gradient(closest-side, rgb(0 0 0 / 0.55), transparent);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) .illus-shadow {
-      background: radial-gradient(closest-side, rgb(0 0 0 / 0.55), transparent);
-    }
-  }
-
-  @keyframes illus-float {
-    0%,
-    100% {
-      transform: translate3d(0, 0, 0);
-    }
-    50% {
-      transform: translate3d(0, -8px, 0);
-    }
-  }
-
-  @keyframes illus-shadow {
-    0%,
-    100% {
-      opacity: 1;
-      transform: scaleX(1);
-    }
-    50% {
-      opacity: 0.6;
-      transform: scaleX(0.86);
-    }
-  }
-
-  @keyframes illus-breathe {
-    0%,
-    100% {
-      opacity: 0.75;
-      transform: scale(0.96);
-    }
-    50% {
-      opacity: 1;
-      transform: scale(1.03);
-    }
-  }
-
-  @keyframes illus-orbit {
-    to {
-      rotate: 360deg;
-    }
-  }
-
-  /* Accents around the illustration: a faint glow in their own colour, a
-     slow drift or twinkle, and a small step outward on hover. Hover uses
-     `translate`, the loops use `transform`, so the two never fight. */
-  .accent {
-    z-index: 1;
-    pointer-events: none;
-    filter: drop-shadow(0 0 6px color-mix(in oklab, currentColor 55%, transparent));
-    translate: 0 0;
-    transition: translate 600ms var(--ease-out);
-  }
-
-  .illus:hover .accent {
-    translate: var(--hx, 0) var(--hy, 0);
-  }
-
-  .accent-drift {
-    animation: accent-drift var(--dur, 6s) var(--ease-in-out) var(--delay, 0s)
-      infinite;
-  }
-
-  .accent-twinkle {
-    animation: accent-twinkle var(--dur, 3s) var(--ease-in-out)
-      var(--delay, 0s) infinite;
-  }
-
-  /* The code chip is clickable, unlike the other accents. */
-  .accent-button {
-    pointer-events: auto;
-    cursor: pointer;
-    z-index: 2;
-  }
-
-  /* The code window opens below-left of the illustration, growing out from
-     her laptop, so she stays visible typing and the copy, buttons and chip
-     stay uncovered. */
-  .code-window {
-    transform-origin: 100% 0%;
-    animation: code-open 320ms var(--ease-out) both;
-  }
-
-  @keyframes code-open {
-    from {
-      opacity: 0;
-      transform: translate3d(6px, -6px, 0) scale(0.94);
-    }
-  }
-
-  .code-caret {
-    display: inline-block;
-    width: 0.5em;
-    height: 1.05em;
-    margin-left: 1px;
-    vertical-align: text-bottom;
-    background: var(--teal);
-    animation: caret-blink 1s steps(1) infinite;
-  }
-
-  @keyframes caret-blink {
-    50% {
-      opacity: 0;
-    }
-  }
-
-  @keyframes accent-drift {
-    0%,
-    100% {
-      transform: translate3d(0, 0, 0) rotate(0deg);
-    }
-    50% {
-      transform: translate3d(0, -7px, 0) rotate(-4deg);
-    }
-  }
-
-  @keyframes accent-twinkle {
-    0%,
-    100% {
-      opacity: 0.55;
-      transform: scale(0.8) rotate(0deg);
-    }
-    50% {
-      opacity: 1;
-      transform: scale(1) rotate(20deg);
-    }
-  }
-
-  /* The accent picker drops open from its swatch. */
-  .accent-menu {
-    transform-origin: top center;
-    animation: accent-menu-in 200ms var(--ease-out) both;
-  }
-
-  @keyframes accent-menu-in {
-    from {
-      opacity: 0;
-      transform: translate3d(0, -4px, 0) scale(0.96);
-    }
-  }
-
-  /* The mobile menu fades in under the bar. */
   .menu-in {
-    animation: fade-in 220ms var(--ease-out) both;
+    animation: fade-in 200ms var(--ease-out) both;
   }
 
-  /* ------------------------------------------------------------------------
-     Scroll reveal. Elements opt in with data-reveal; one observer in Motion
-     sets data-revealed as they enter, and staggers whatever enters together
-     by a few tens of milliseconds.
-
-     Keyframe animations with backwards fill only, so once finished they let
-     go of the element and never interfere with its hover transitions. The
-     hidden state applies only with scripting on, and a failsafe shows
-     everything if the script never arrives.
-     ------------------------------------------------------------------------ */
-
+  /* Scroll reveal. Elements opt in with data-reveal; one observer in Motion
+     sets data-revealed as they enter. Backwards fill only, so a finished
+     reveal never interferes with the element's own transitions. The hidden
+     state applies only with scripting on, with a failsafe if it never runs. */
   @media (scripting: enabled) {
     [data-reveal]:not([data-revealed]),
     [data-reveal="stagger"]:not([data-revealed]) > * {
       opacity: 0;
     }
 
-    [data-reveal="words"]:not([data-revealed]) .split-word > span {
-      opacity: 0;
-    }
-
-    :is([data-reveal="stagger"], [data-reveal="words"]):not([data-revealed]) {
+    [data-reveal="stagger"]:not([data-revealed]) {
       opacity: 1;
     }
 
     html:not([data-motion]) [data-reveal],
-    html:not([data-motion]) [data-reveal] > *,
-    html:not([data-motion]) [data-reveal] .split-word > span {
+    html:not([data-motion]) [data-reveal] > * {
       animation: reveal-failsafe 1ms linear 3s forwards;
     }
   }
@@ -653,44 +278,11 @@
   }
 
   [data-revealed="true"] {
-    animation: fade-up 650ms var(--ease-out) var(--reveal-at) backwards;
+    animation: fade-up 550ms var(--ease-out) var(--reveal-at) backwards;
   }
 
   [data-revealed="true"][data-reveal="soft"] {
     animation-name: fade-in;
-  }
-
-  [data-revealed="true"][data-reveal="rise"] {
-    animation-name: rise;
-    animation-duration: 750ms;
-  }
-
-  [data-revealed="true"][data-reveal="left"] {
-    animation-name: fade-left;
-  }
-
-  [data-revealed="true"][data-reveal="right"] {
-    animation-name: fade-right;
-    animation-duration: 750ms;
-  }
-
-  /* Headings: the element holds still while its words rise in turn. */
-  [data-revealed="true"][data-reveal="words"] {
-    animation: none;
-  }
-
-  [data-revealed="true"][data-reveal="words"] .split-word > span {
-    animation: word-up 750ms var(--ease-out)
-      calc(var(--reveal-at) + var(--w, 0) * 70ms) backwards;
-  }
-
-  [data-reveal="line"] {
-    transform-origin: left center;
-  }
-
-  [data-revealed="true"][data-reveal="line"] {
-    animation-name: draw;
-    animation-duration: 800ms;
   }
 
   [data-revealed="true"][data-reveal="stagger"] {
@@ -698,7 +290,7 @@
   }
 
   [data-revealed="true"][data-reveal="stagger"] > * {
-    animation: fade-up 650ms var(--ease-out)
+    animation: fade-up 550ms var(--ease-out)
       calc(var(--reveal-at) + var(--i, 0) * 40ms) backwards;
   }
 
@@ -706,37 +298,113 @@
   [data-reveal="stagger"] > :nth-child(3) { --i: 2; }
   [data-reveal="stagger"] > :nth-child(4) { --i: 3; }
   [data-reveal="stagger"] > :nth-child(5) { --i: 4; }
-  [data-reveal="stagger"] > :nth-child(6) { --i: 5; }
-  [data-reveal="stagger"] > :nth-child(n + 7) { --i: 6; }
+  [data-reveal="stagger"] > :nth-child(n + 6) { --i: 5; }
 
-  /* Already on screen when a slow script arrived: shown as is. */
   [data-revealed="static"],
-  [data-revealed="static"] > *,
-  [data-revealed="static"] .split-word > span {
+  [data-revealed="static"] > * {
     animation: none;
   }
 
-  /* Reading progress along the bottom of the navigation, driven by the
-     scroll position itself where the browser supports it. */
-  .scroll-progress {
-    display: none;
+  /* ------------------------------------------------------------------------
+     Hero illustration: poses crossfade. The code editor opens below her.
+     ------------------------------------------------------------------------ */
+
+  .pose {
+    transition: opacity 280ms var(--ease-out);
   }
 
-  @supports (animation-timeline: scroll()) {
-    @media (prefers-reduced-motion: no-preference) {
-      .scroll-progress {
-        display: block;
-        transform-origin: left center;
-        background: var(--teal);
-        animation: draw linear both;
-        animation-timeline: scroll(root block);
-      }
+  .code-window {
+    transform-origin: 100% 0%;
+    animation: code-open 240ms var(--ease-out) both;
+  }
+
+  @keyframes code-open {
+    from {
+      opacity: 0;
+      transform: translate3d(0, -4px, 0) scale(0.97);
+    }
+  }
+
+  .code-caret {
+    display: inline-block;
+    width: 0.5em;
+    height: 1.05em;
+    margin-left: 1px;
+    vertical-align: text-bottom;
+    background: #e5e5e5;
+    animation: caret-blink 1s steps(1) infinite;
+  }
+
+  @keyframes caret-blink {
+    50% {
+      opacity: 0;
     }
   }
 
   /* ------------------------------------------------------------------------
-     Route changes: a project title moves from its card into the page
-     heading, the navigation stays put, and the rest crossfades quickly.
+     Recommendations carousel.
+     ------------------------------------------------------------------------ */
+
+  .quote-in {
+    animation: quote-in 320ms var(--ease-out) both;
+  }
+
+  @keyframes quote-in {
+    from {
+      opacity: 0;
+      transform: translateX(var(--slide-from, 8px));
+    }
+  }
+
+  .quote-fade {
+    -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent);
+    mask-image: linear-gradient(to bottom, #000 62%, transparent);
+  }
+
+  .dot-progress {
+    transform-origin: left center;
+    animation: dot-progress var(--rotate, 4500ms) linear both;
+  }
+
+  @keyframes dot-progress {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  /* Diagram connectors on project pages light in sequence. */
+  .signal {
+    animation: signal 4.2s ease-in-out infinite;
+  }
+
+  @keyframes signal {
+    0%,
+    62%,
+    100% {
+      color: var(--panel-line);
+    }
+    14%,
+    30% {
+      color: var(--panel-ink);
+    }
+  }
+
+  .pulse {
+    animation: pulse 2.8s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    50% {
+      opacity: 0.35;
+    }
+  }
+
+  /* ------------------------------------------------------------------------
+     Route changes: a project title moves from its row into the page heading,
+     the header stays put, and the rest crossfades. Theme changes crossfade.
      ------------------------------------------------------------------------ */
 
   ::view-transition {
@@ -744,7 +412,7 @@
   }
 
   ::view-transition-group(.morph) {
-    animation-duration: 380ms;
+    animation-duration: 340ms;
     animation-timing-function: var(--ease-out);
   }
 
@@ -753,36 +421,12 @@
   }
 
   ::view-transition-new(root) {
-    animation: 260ms ease-out 60ms both fade-in;
+    animation: 240ms ease-out 60ms both fade-in;
   }
 
   @keyframes vt-fade-out {
     to {
       opacity: 0;
-    }
-  }
-
-  /* Theme and accent changes: the new colours spread out in a circle from
-     the control that was clicked (--vt-x/--vt-y). The header is folded into
-     the page for this one, so the whole screen changes together. */
-  html[data-vt="colors"] header {
-    view-transition-name: none !important;
-  }
-
-  html[data-vt="colors"]::view-transition-old(root) {
-    animation: none;
-  }
-
-  html[data-vt="colors"]::view-transition-new(root) {
-    animation: vt-reveal 650ms var(--ease-out) both;
-  }
-
-  @keyframes vt-reveal {
-    from {
-      clip-path: circle(0 at var(--vt-x, 50%) var(--vt-y, 0));
-    }
-    to {
-      clip-path: circle(150vmax at var(--vt-x, 50%) var(--vt-y, 0));
     }
   }
 
@@ -799,81 +443,6 @@
     animation: none;
   }
 
-  /* Each testimonial fades up as it arrives. Short and small on purpose: the
-     card is a supporting element, not something that should pull the eye. */
-  .quote-in {
-    animation: quote-in 380ms var(--ease-out) both;
-  }
-
-  @keyframes quote-in {
-    from {
-      opacity: 0;
-      transform: translateX(var(--slide-from, 8px));
-    }
-  }
-
-  /* A collapsed recommendation fades out rather than ending in "…". */
-  .quote-fade {
-    -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent);
-    mask-image: linear-gradient(to bottom, #000 62%, transparent);
-  }
-
-  /* The active dot fills across the rotation, so the carousel shows its own
-     timing. scaleX rather than width, to stay on the compositor. */
-  .dot-progress {
-    transform-origin: left center;
-    animation: dot-progress var(--rotate, 4500ms) linear both;
-  }
-
-  @keyframes dot-progress {
-    from {
-      transform: scaleX(0);
-    }
-    to {
-      transform: scaleX(1);
-    }
-  }
-
-  /* Emerald into teal, as a short marker on each section header. */
-  .gradient-rule {
-    background: linear-gradient(90deg, var(--emerald), var(--teal));
-  }
-
-  /* The availability indicator, breathing rather than blinking. */
-  .pulse {
-    animation: pulse 2.8s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%,
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 0.4;
-      transform: scale(0.82);
-    }
-  }
-
-  /* A signal travelling the length of a diagram: each connector lights in
-     turn, so the path reads in the order a request actually takes it. */
-  .signal {
-    animation: signal 4.2s ease-in-out infinite;
-  }
-
-  @keyframes signal {
-    0%,
-    62%,
-    100% {
-      color: var(--panel-line);
-    }
-    14%,
-    30% {
-      color: var(--emerald);
-    }
-  }
-
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
@@ -886,15 +455,8 @@
       transition-duration: 0.01ms !important;
     }
 
-    .signal {
-      color: var(--panel-line);
-    }
-
-    /* Never leave anything hidden when motion is reduced: the reveal states
-       collapse to the finished layout. */
     [data-reveal],
-    [data-reveal="stagger"] > *,
-    .split-word > span {
+    [data-reveal="stagger"] > * {
       opacity: 1 !important;
       transform: none !important;
     }
